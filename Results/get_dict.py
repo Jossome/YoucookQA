@@ -6,9 +6,7 @@ import pickle
 import pandas as pd
 import os
 
-subset = 'test'
-with open('../data/' + subset + '_id.txt', 'r') as f:
-    ids = [int(x) for x in f.readlines()]
+subset = 'validation'
 
 with open('../data/qa_pairs_with_id.json', 'r') as f:
     db = json.load(f)
@@ -53,7 +51,8 @@ for each in db:
     segs = db[each]['annotations']
 
     for pair in pairs:
-        num += 1
+        if db[each]['subset'] == subset:
+            num += 1
         q = pair['question'].lower()
         a = pair['answer'].lower()
         alts = pair['alternatives']
@@ -170,6 +169,9 @@ for each in db:
     # if each == test_first:
     #     print('val last:', i)
 
+    if db[each]['subset'] != subset:
+        continue
+
     pairs = db[each]['QApairs']
     length = db[each]['duration']
     segs = db[each]['annotations']
@@ -179,8 +181,6 @@ for each in db:
     # token = word_tokenize(intro)
 
     for pair in pairs:
-        if pair['id'] not in ids:
-            continue
 
         q = pair['question'].lower()
         a = []
