@@ -166,7 +166,7 @@ class statistics:
         sinq = 0
         texq = 0
 
-        caonima = 0
+        others = 0
         for each in self.db:
             pairs = self.db[each]['QApairs']
             if self.db[each]['subset'] != 'validation':
@@ -203,9 +203,9 @@ class statistics:
                     # print(len(pair['question'].strip()))
                     # Strange that len is much greater than zero,
                     # and not blank, but won't print a single char.
-                    caonima += 1
+                    others += 1
 
-        return cnt, tags, words, ynq, numq, sinq, texq, caonima
+        return cnt, tags, words, ynq, numq, sinq, texq, others
 
 
     def qa_stats(self, type_name):
@@ -214,7 +214,7 @@ class statistics:
         # Yes/No, Num, single word, text
         # Tags/QA-pair, avg word per answer, qa/video
 
-        cnt, tags, words, ynq, numq, sinq, texq, caonima = self.get_stats(self.tag_type, type_num)
+        cnt, tags, words, ynq, numq, sinq, texq, others = self.get_stats(self.tag_type, type_num)
 
         print(type_name)
         print('qapairs: ', cnt)
@@ -227,13 +227,13 @@ class statistics:
         print('qa/video: ', cnt / 2000)
         if type_num == -1:
             print('qa/recipe: ', cnt / 110)
-        print('caonima: ', caonima)
+        print('others: ', others)
 
 
     def recipe_stats(self, recipe_name, verbose=True):
         # stats per recipe
         recipe_num = self.recipe[recipe_name]
-        cnt, tags, words, ynq, numq, sinq, texq, caonima = self.get_stats(self.recipe_type, recipe_num)
+        cnt, tags, words, ynq, numq, sinq, texq, others = self.get_stats(self.recipe_type, recipe_num)
 
         if verbose:
             print(recipe_name)
@@ -246,7 +246,7 @@ class statistics:
             print('ans avg len: ', words / cnt)
             if recipe_num == -1:
                 print('qa/recipe: ', cnt / 110)
-            print('caonima: ', caonima)
+            print('others: ', others)
             print()
 
         return cnt, tags, words, ynq, numq, sinq, texq
