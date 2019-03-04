@@ -1,0 +1,7 @@
+*.csv
+*.json
+*.pkl
+*.txt
+*.log
+*.zip
+*tar*

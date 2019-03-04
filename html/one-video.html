@@ -1,0 +1,311 @@
+<!--
+  MTurk UI that takes .csv with youtube id, start time, and end time
+  and displays a muted video and asks users to describe the visual scene
+  
+  Justin Goodman
+  Marc Moore
+  -->
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<meta content="width=device-width,initial-scale=1" name="viewport" /><script type='text/javascript' src='https://s3.amazonaws.com/mturk-public/externalHIT_v1.js'></script><!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet" />
+<section class="container"><!-- Instructions -->
+<div class="row">
+<div class="col-sm-12">
+<div class="accordian">
+<div class="card">
+<div class="card-header" id="headingOne" role="tab">
+<h3 class="mb-0"><a aria-controls="collapseOne" aria-expanded="false" data-toggle="collapse" href="#collapseOne" id="instrLink" style="color: red;"><b>Instructions</b> (Please read if this is your first time) (Click to expand)</a></h3>
+</div>
+
+<div aria-labelledby="headingOne" class="collapse" data-parent="#accordion" id="collapseOne" role="tabpanel">
+<div class="card-body" id="instructionBody">
+<section>
+<p><b>TL;DR:</b> We are artificial intelligence researchers looking to create a dataset. We want you to ask four questions about a video.</p>
+
+</section>
+
+<section>
+<h4>STEPS TO SUCCESSFULLY COMPLETE THESE HITS:</h4>
+
+<ol>
+	<ul>
+		<li>We provide you with an instructional description with time stamp of the video. The description is helpful for you to understand what is going on in the video, and to jump to certain steps by dragging the progress bar.</li>
+		<li>This description lacks detail, so you have to watch the video to propose good questions. <b>Don&#39;t ask questions only based on descriptions. We&#39;ll know.</b></li>
+		<li>The YouTube video player will then play the specified clip for you.</li>
+		<li>Please ignore any advertisements that may play during the YouTube video. Use of an ad-blocker is highly suggested (for speed, so you don&#39;t have to wait for ads to play) but not required.</li>
+	</ul>
+	</li>
+	<li>Ask <b>4 questions</b> about the video, 1 question per <span><textarea placeholder="Ask here..." rows="1"></textarea></span> textbox.
+	<ul>
+		<li>Your annotation should be in English.</li>
+		<li>Try to ask four different types of questions. If can&#39;t, ask <b>at most</b> two questions for each type.</li>
+		<li>You need to be sure that your questions have answers in the video, not from common sense.</li>
+		<li><b>AVOID spelling mistakes and grammatical mistakes</b>.</li>
+		<li>Here are 5 types of questions, to which your questions should be restricted.
+		<ul>
+			<li>
+			<p>Change of properties</p>
+
+			<ul>
+				<li>In this senario, one food object is processed by some cooking action(s), and its properties change.</li>
+				<li>For example, a piece of raw bacon shrinks and becomes yellow after being fried in oil.</li>
+				<li>Four sub-types of questions can be proposed:
+				<ul>
+					<li>Ask about properties before actions. E.g. &ldquo;Is the bacon before being fried bigger than that after being fried?&rdquo;</li>
+					<li>Ask about properties after actions. E.g. &ldquo;What&rsquo;s the color of the bacon after being fried?&rdquo;</li>
+					<li>Ask about actions. E.g. &ldquo;What makes the bacon shrink?&rdquo;</li>
+					<li>Ask about identity. E.g. &ldquo;Are the raw bacon and the yellow bacon the same thing?&rdquo;</li>
+				</ul>
+				</li>
+			</ul>
+			</li>
+			<li>
+			<p>Reasoning along time axis</p>
+
+			<ul>
+				<li>Compare the counts or size (or even spatial location) of one food object along the time axis.</li>
+				<li>Question sub-types are not fixed here, but one should contain reasoning <b>(it&#39;s video, not image, so make use of the time line!)</b>. Here are only two examples to refer.
+				<ul>
+					<li>E.g. &ldquo;Among the segments that have tomatoes, which segment has the least tomatoes?&rdquo;</li>
+					<li>E.g. &ldquo;In the segments with least tomatoes, there is a food object besides tomatoes. Which segments has least such food objects?&rdquo;</li>
+					<li>E.g. &ldquo;For the beef cut in the first segment, when is it used later?&rdquo;</li>
+				</ul>
+				</li>
+			</ul>
+			</li>
+			<li>
+			<p>Count the number of certain actions.</p>
+
+			<ul>
+				<li>There may be actions that are taken several times in the cooking procedure, such as knife cuts, adding water.</li>
+				<li>Two sub-types of questions can be proposed here:
+				<ul>
+					<li>Ask about action itself. E.g. &ldquo;How many times does the chef <strong>add water</strong> to the pot?&rdquo;</li>
+					<li>Ask about the objects that a certain action is taken on. E.g. &ldquo;How many kinds of ingredients does the chef <strong>cut</strong>?&rdquo;</li>
+				</ul>
+				</li>
+			</ul>
+			</li>
+			<li>
+			<p>Action at certain point of time</p>
+
+			<ul>
+				<li>There are many steps of actions in a recipe. We want to query about the timing position of an action. (Involve some reasoning)</li>
+				<li>Two sub-types of questions can be asked:
+				<ul>
+					<li>Ask about when a certain ingredient is used in a <strong>specific action</strong>. E.g. &ldquo;When is the beef cut?&rdquo; or &ldquo;When is the beef fried?&rdquo;. <strong>Don&rsquo;t</strong> ask something like &ldquo;When is the beef used?&rdquo; because &ldquo;used&rdquo; is not specific, &ldquo;cut/fried&rdquo; is specific.</li>
+					<li>Ask about when the action is taken. E.g. &ldquo;When does the chef pour the water?&rdquo;</li>
+				</ul>
+				</li>
+			</ul>
+			</li>
+			<li>
+			<p>Action orders</p>
+
+			<ul>
+				<li>The cooking procedure has many sub-steps. You can ask whether certain steps have to be done in a certain order.</li>
+				<li>For example, when making doughs, we first add flour, then add eggs. We wonder if we can add eggs first and then add flour.</li>
+				<li>Only one sub-type of question can be asked:
+				<ul>
+					<li>Ask about the rationality of switching the order of two steps. E.g. &ldquo;Does it matter to add eggs first and then add flour?&rdquo;</li>
+				</ul>
+				</li>
+			</ul>
+			</li>
+		</ul>
+		</li>
+		<li>Click <span><button class="btn btn-primary" onclick="" type="button">Submit Answer</button></span>! Thank you for completing our HIT!</li>
+	</ul>
+	</li>
+</ol>
+
+<p><b>Note</b>: If this is your first time doing these HITs, please tell us, in the first comments box, your favorite beverage just so we know you read the instructions :) (you should only do this on your first time!).</p>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- End Instructions -->
+
+<hr /><!-- Video matching layout -->
+<div class="row" id="workContent">
+<div class="col-sm-8">
+<h3 id="ass">HIT: (<b>This is NOT instruction! Click the above red line to read instruction!</b>)</h3>
+<h4>We have some brief description of the video below the video.</h4>
+
+<video height="10px" width="640px">
+<p class="red">It seems like your browser is out-dated. Please do not complete these HITs!</p>
+</video>
+&nbsp;
+
+<video controls="" height="360" id="player" width="640">
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+&nbsp;
+
+<p class="red" id="loading">Looks like our code had an error, the video is unavailable, or your browser is out-dated. You should skip this HIT!</p>
+<button class="btn btn-primary" onclick="play(this);" type="button">Play Video</button><br />
+<div class="form-group" id="response-form">
+<input name="recipe" style="width:600px;" type="text" value="This recipe type is: ${recipe}" /> 
+<input name="description1" style="width:600px;" type="text" value="${description1}" /> 
+<input name="description2" style="width:600px;" type="text" value="${description2}" /> 
+<input name="description3" style="width:600px;" type="text" value="${description3}" /> 
+<input name="description4" style="width:600px;" type="text" value="${description4}" /> 
+<input name="description5" style="width:600px;" type="text" value="${description5}" /> 
+<input name="description6" style="width:600px;" type="text" value="${description6}" /> 
+<input name="description7" style="width:600px;" type="text" value="${description7}" /> 
+<input name="description8" style="width:600px;" type="text" value="${description8}" /> 
+<input name="description9" style="width:600px;" type="text" value="${description9}" /> 
+<input name="description10" style="width:600px;" type="text" value="${description10}" /> 
+<input name="description11" style="width:600px;" type="text" value="${description11}" /> 
+<input name="description12" style="width:600px;" type="text" value="${description12}" /> 
+<input name="description13" style="width:600px;" type="text" value="${description13}" /> 
+<input name="description14" style="width:600px;" type="text" value="${description14}" /> 
+<input name="description15" style="width:600px;" type="text" value="${description15}" /> 
+<input name="description16" style="width:600px;" type="text" value="${description16}" />
+</div>
+
+<div class="form-group" id="response-form" style="display: none;"><!-- why are you looking here, get out! --><input name="identifier" type="text" value="audio" /> <input name="ytid" type="text" value="${ytid}" /> <input id="dummy" name="clickedPlay" type="text" value="0" /> <input id="instr" name="clickedInstructions" type="text" value="0" /> <input id="yt-error" name="youtubeError" type="text" value="0" /> <input id="ua" name="userAgent" type="text" value="" /> <input id="adb" name="hasAdBlock" type="text" value="1" /></div>
+</div>
+<!-- Worker input -->
+
+<div class="col-sm-4">
+<div class="form-group">
+<h4>Ask questions:</h4>
+
+<center>Try to ask four different types of questions! If you can&#39;t, we make room for at most two questions per type.</center>
+<label>Change of properties:</label>
+
+<p>Hints: ask about what action, what&#39;s it like before/after the action</p>
+<textarea class="form-control" cols="250" name="t1q1" placeholder="Ask here..." rows="1"></textarea>
+<textarea class="form-control" cols="250" name="t1q2" placeholder="Ask here..." rows="1"></textarea><br />
+<label>Reasoning along time axis:</label>
+
+<p>Hints: make use of time line. Don&#39;t ask question in only one frame</p>
+
+<p>E.g.: Among the segments that have tomatoes, which segment has the least tomatoes?</p>
+<textarea class="form-control" cols="250" name="t2q1" placeholder="Ask here..." rows="1"></textarea>
+<textarea class="form-control" cols="250" name="t2q2" placeholder="Ask here..." rows="1"></textarea><br />
+<label>Action at certain point of time:</label>
+
+<p>Hints: ask about when an ingredient is used, or when an action is taken.</p>
+<textarea class="form-control" cols="250" name="t3q1" placeholder="Ask here..." rows="1"></textarea>
+<textarea class="form-control" cols="250" name="t3q2" placeholder="Ask here..." rows="1"></textarea><br />
+<label>Count the number of certain actions:</label>
+
+<p>Hints: Just as it is</p>
+<textarea class="form-control" cols="250" name="t4q1" placeholder="Ask here..." rows="1"></textarea>
+<textarea class="form-control" cols="250" name="t4q2" placeholder="Ask here..." rows="1"></textarea><br />
+<label>Action orders:</label>
+
+<p>Hints: ask about does it matter to switch two actions.</p>
+<textarea class="form-control" cols="250" name="t5q1" placeholder="Ask here..." rows="1"></textarea>
+<textarea class="form-control" cols="250" name="t5q2" placeholder="Ask here..." rows="1"></textarea><br />
+<label>Comments on this assignment (optional):</label>
+<textarea class="form-control" cols="250" name="comments" rows="2"></textarea><br />
+<label>Comments to improve these HITs (optional):</label>
+<textarea class="form-control" cols="250" name="improve" rows="2"></textarea></div>
+<input class="submit btn btn-primary" id="submitButton" type="submit" value="Submit Answer" /></div>
+</div>
+</div>
+</section>
+
+<!-- End Video matching layout --><!-- Open internal style sheet -->
+<style type="text/css">/* uhh */
+</style>
+<style type="text/css">#submitButton {
+  white-space: normal;
+  }
+  /* CSS for breaking long words/urls */
+  .dont-break-out {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  }
+</style>
+<!-- End internal style sheet --><!-- External JS references --><script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script><!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>--><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- REU-2018 script code --><script type="text/javascript">
+  // --- general variables
+  var vid;
+  var c;
+  var ua = window.navigator.userAgent;
+  var first = true;
+  var url = "https://you-link.herokuapp.com/?url=https://www.youtube.com/watch?v=${ytid}";
+  var xmlhttp = new XMLHttpRequest();
+  var i;
+  var len;
+  var start = 0;
+  var end = 10000;
+  // --- document object variables
+  var err = $("#yt-error");
+  var instr = $("#instr");
+  var player = $("#player");
+  var plget = player.get(0);
+  var loadText = $("#loading");
+  // --- script code
+  loadText.html("Loading video (this may take a second)...");
+  $('#ua').val(ua);
+  // set onclick for instructions
+  $('#instrLink').on('click', instrClicked);
+  // youtube video code
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      ready(JSON.parse(this.responseText));
+    } else {
+      error();
+    }
+  };
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+  // --- functions
+  function instrClicked() {
+    instr.val(1);
+  }
+  function ready(data) {
+    len = data.length;
+    for (i = 0; i < len; i++) {
+      player.append($(document.createElement("source")).attr({'src': data[i]['url'], 'type': data[i]['type']}).on('error', error));
+    }
+    plget.muted = false;
+    player.on('timeupdate', check);
+    player.on('volumechange', vol);
+    player.on('error', error);
+    loadText.html('Video is ready for playback! If you see a video above this message, you are good to go!, Start time: ' + start + '-sec, End time: ' + end + '-sec.').removeClass('red').addClass('blue');
+  }
+  function check() {
+    c = plget.currentTime;
+    loadText.html("Current time: " + Math.floor(c));
+    if (c < start || c > end) {
+      plget.currentTime = start;
+    }
+  }
+  function vol() {
+    plget.muted = false;
+  }
+  function error() {
+    loadText.html("Uh oh! Something went wrong. Please do not accept this HIT!").removeClass('blue').addClass('red');
+    err.val(1);
+  }
+  function play(ele) {
+    plget.play();
+    if (first) {
+      first = false;
+      document.getElementById("dummy").setAttribute("value", "1");
+    }
+    ele.setAttribute("onclick", "pause(this);");
+    ele.textContent = "Pause Video";
+  }
+  function pause(ele) {
+    plget.pause();
+    ele.setAttribute("onclick", "play(this);");
+    ele.textContent = "Play Video";
+  }
+</script><!-- End REU script --></p>
+

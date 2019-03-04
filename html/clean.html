@@ -1,0 +1,137 @@
+<!--
+  MTurk UI that takes .csv with youtube id, start time, and end time
+  and displays a muted video and asks users to describe the visual scene
+  
+  Justin Goodman
+  Marc Moore
+  -->
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<meta content="width=device-width,initial-scale=1" name="viewport" /><script type='text/javascript' src='https://s3.amazonaws.com/mturk-public/externalHIT_v1.js'></script><!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet" />
+<section class="container"><!-- Instructions -->
+<div class="row">
+<div class="col-sm-12">
+<div class="accordian">
+<div class="card">
+<div class="card-header" id="headingOne" role="tab">
+<h3 class="mb-0"><a aria-controls="collapseOne" aria-expanded="false" data-toggle="collapse" href="#collapseOne" id="instrLink" style="color: red;"><b>Instructions</b> (Click to expand)</a></h3>
+</div>
+
+<div aria-labelledby="headingOne" class="collapse" data-parent="#accordion" id="collapseOne" role="tabpanel">
+<div class="card-body" id="instructionBody">
+<section>
+<h4>Some instructions on cleaning the dataset:</h4>
+
+<ol>
+	<li>Delete those questions that are too subjective to give a specific answer.</li>
+	<li>Edit alternatives that are not related to the question.
+	<ul>
+		<li>Alternatives should be related to questions.</li>
+		<li>Alternatives shouldn&#39;t be similar to the correct answer, i.e. not to cause confusion.</li>
+		<li>Examplar after cleaning:</li>
+		<li>Q): Why does the mixture look white? A): Milk is in it.</li>
+		<li>And the alternatives are: A) Because the light is strong. B) Everything in it is white. C) Because it is covered with white cloth. D)</li>
+	</ul>
+	</li>
+	<li>Each question must have one correct answer and FOUR alternatives. For &#39;yes/no&#39; questions, we do not need to edit them as long as there is both &#39;yes&#39; and &#39;no&#39;.</li>
+	<li>There are some questions where you may not come up with enough reasonable alternatives, then you just fill the rest with some words under the same category, or something else you can think of.</li>
+	<li>A special rule for &#39;when&#39;, &#39;at what time&#39; questions:
+	<ul>
+		<li>The answer often comes with &quot;at time 423&quot;, &quot;456 seconds&quot;, &quot;123 - 147&quot;, etc. We want them to have numbers only. So you need to edit them to &quot;423&quot;, &quot;456&quot;, &quot;123&quot;(just keep the beginning of the time period)</li>
+		<li>This is the ONLY situation where you should edit the correct answer.</li>
+		<li>The number here stands for the seconds in a video. The longest could be more than 10 min, which we take it as up to 700 seconds. Please make up alternatives randomly within the reasonable range.</li>
+	</ul>
+	</li>
+</ol>
+</section>
+
+<h4>Submission:</h4>
+
+<section>
+<ol>
+	<li>If the question is too subjective, check the checkbox before &quot;Delete&quot;</li>
+	<li>If you need to modify the correct answer to a certain form, check the checkbox before &quot;Edit answer&quot; and type the correct answer in the corresponding textbox on the same row.</li>
+	<li>If you need to modify the alternatives, check the checkbox before &quot;Edit alternatives&quot; and type the new alternatives in the corresponding textbox on the same row.</li>
+	<li>If the QA pair is good, do nothing, and then submit.</li>
+	<li>Click <span><button class="btn btn-primary" onclick="" type="button">Submit Answer</button></span>!</li>
+</ol>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- End Instructions --><!-- Worker input -->
+
+<div class="col-sm-12">
+<div class="form-group" id="response-form">
+<h3>Your action (if the QA is good, then check none of the boxes.):</h3>
+
+<div class="tg-wrap">
+<table border="1" id="tg-iMqOp">
+	<tbody>
+		<tr>
+			<td><label>Question: </label></td>
+			<td><script type="text/javascript">document.write("${question}")</script></td>
+			<td colspan="2"><input name="delete" type="checkbox" /> Delete</td>
+		</tr>
+		<tr>
+			<td><label>Answer: </label></td>
+			<td><script type="text/javascript">document.write("${answer}")</script></td>
+			<td width="128"><input name="edit_answer" type="checkbox" /> Edit Answer</td>
+			<td><textarea class="form-control" cols="250" name="ans" placeholder="Put correct answer here..." rows="2"></textarea></td>
+		</tr>
+		<tr>
+			<td rowspan="4"><label>Alternatives: </label></td>
+			<td><script type="text/javascript">document.write("${alt1}")</script></td>
+			<td rowspan="4" width="128"><input name="edit_alters" type="checkbox" /> Edit alternatives</td>
+			<td><textarea class="form-control" cols="250" name="alt1" placeholder="Put first alternative here..." rows="2"></textarea></td>
+		</tr>
+		<tr>
+			<td><script type="text/javascript">document.write("${alt2}")</script></td>
+			<td><textarea class="form-control" cols="250" name="alt2" placeholder="Put second alternative here..." rows="2"></textarea></td>
+		</tr>
+		<tr>
+			<td><script type="text/javascript">document.write("${alt3}")</script></td>
+			<td><textarea class="form-control" cols="250" name="alt3" placeholder="Put third alternative here..." rows="2"></textarea></td>
+		</tr>
+		<tr>
+			<td><script type="text/javascript">document.write("${alt4}")</script></td>
+			<td><textarea class="form-control" cols="250" name="alt4" placeholder="Put fourth alternative here..." rows="2"></textarea></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<h3>Video ytid:</h3>
+<label><script type="text/javascript">document.write("${ytid}")</script></label><br />
+<input class="submit btn btn-primary" id="submitButton" type="submit" value="Submit Answer" /></div>
+</div>
+</div>
+</section>
+<!-- End Video matching layout --><!-- Open internal style sheet -->
+<style type="text/css">/* uhh */
+</style>
+<style type="text/css">#submitButton {
+    white-space: normal;
+  }
+  /* CSS for breaking long words/urls */
+  .dont-break-out {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  }
+</style>
+<!-- End internal style sheet --><!-- External JS references --><script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script><!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>--><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- REU-2018 script code --><script type="text/javascript">
+  // --- general variables
+ 
+</script><!-- End REU script -->
+<p>&nbsp;</p>
+

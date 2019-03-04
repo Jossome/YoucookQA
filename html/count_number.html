@@ -1,0 +1,712 @@
+<!--
+  MTurk UI that takes .csv with youtube id, start time, and end time
+  and displays a muted video and asks users to describe the visual scene
+  
+  Justin Goodman
+  Marc Moore
+  -->
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<meta content="width=device-width,initial-scale=1" name="viewport" /><script type='text/javascript' src='https://s3.amazonaws.com/mturk-public/externalHIT_v1.js'></script><!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet" />
+<section class="container"><!-- Instructions -->
+<div class="row">
+<div class="col-sm-12">
+<div class="accordian">
+<div class="card">
+<div class="card-header" id="headingOne" role="tab">
+<h3 class="mb-0"><a aria-controls="collapseOne" aria-expanded="false" data-toggle="collapse" href="#collapseOne" id="instrLink" style="color: red;"><b>Instructions</b> (Must read the whole instruction or no money) (Click to expand)</a></h3>
+</div>
+
+<div aria-labelledby="headingOne" class="collapse" data-parent="#accordion" id="collapseOne" role="tabpanel">
+<div class="card-body" id="instructionBody">
+<section>
+<p><b>TL;DR:</b> We are artificial intelligence researchers looking to create a dataset. We want you to ask one question with specified type about a video.</p>
+
+</section>
+
+<section>
+<h4>STEPS TO SUCCESSFULLY COMPLETE THESE HITS:</h4>
+
+<ol>
+  <li>Watch the video.</li>
+	<ul>
+		<li>We provide you with instructional descriptions of the video. The video is segmented into several parts per step.</li>
+		<li>Please be patient since it takes seconds to load the videos. If some won't load or get freezed, refresh the page.</li>
+		<li>This description lacks detail, so you have to watch the video to propose a good question. <b>Please don&#39;t ask question only based on descriptions.</b></li>
+	</ul>
+  <li>Ask one question about the video in the <span><textarea placeholder="Ask here..." rows="1"></textarea></span> textbox.</li>
+  <li>Give your answer to the question in the <span><textarea placeholder="Answer here..." rows="1"></textarea></span> textbox.</li>
+	<ul>
+    <li style="color: red"><b>IMPORTANT: Your question-answer must involve counting numbers.</b> </li>
+		<ul>
+            <li>Example1: Q): How many eggs are used? A): 4.</li>
+            <li>Example2: Q): How many times does the chef add water? A): 1.</li>
+            <li>Example3: Q): Are there five eggs cracked in total? A): No.</li>
+            <li>Example4: Q): Are there more than two chicken wings in the bowl? A): Yes.</li>
+		</ul>
+    </ul>
+  <li><b style="color:red;">Note (also important to you)</b>: If this is your first time doing these HITs, please type "<b style="color:red;">youcook</b>" in the COMMENTS box, which is the last box (you should only do this on your first time!). This is the only way we make sure that you read the instructions, and the only way you can get paid. We will block those who don't read the instructions.</li>
+  <li>Click <span><button class="btn btn-primary" onclick="" type="button">Submit Answer</button></span>! Thank you for completing our HIT!</li>
+</ol>
+
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- End Instructions -->
+
+<hr /><!-- Video matching layout -->
+<div class="row" id="workContent">
+<div class="col-sm-8">
+<h3 id="ass">HIT: (<b>This is NOT instruction! Click the above red line to read instruction!</b>)</h3>
+<h4>We have step-by-step description and segmentation for the recipe video.</h4>
+<p class="red" id="loading">Looks like our code had an error, the video is unavailable, or your browser is out-dated. You should skip this HIT!</p>
+
+<p>This recipe is: <script type="text/javascript">document.write("${recipe}")</script></p>
+<label> <script type="text/javascript">document.write("${description1}")</script></label>
+<div class="steps" id="response-form1">
+<video loop="loop" height="135" id="player1" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start1}_${end1}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress1" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description2}")</script></label>
+<div class="steps" id="response-form2">
+<video loop="loop" height="135" id="player2" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start2}_${end2}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress2" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description3}")</script></label>
+<div class="steps" id="response-form3">
+<video loop="loop" height="135" id="player3" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start3}_${end3}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress3" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description4}")</script></label>
+<div class="steps" id="response-form4">
+<video loop="loop" height="135" id="player4" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start4}_${end4}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress4" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description5}")</script></label>
+<div class="steps" id="response-form5">
+<video loop="loop" height="135" id="player5" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start5}_${end5}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress5" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description6}")</script></label>
+<div class="steps" id="response-form6">
+<video loop="loop" height="135" id="player6" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start6}_${end6}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress6" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description7}")</script></label>
+<div class="steps" id="response-form7">
+<video loop="loop" height="135" id="player7" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start7}_${end7}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress7" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description8}")</script></label>
+<div class="steps" id="response-form8">
+<video loop="loop" height="135" id="player8" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start8}_${end8}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress8" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description9}")</script></label>
+<div class="steps" id="response-form9">
+<video loop="loop" height="135" id="player9" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start9}_${end9}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress9" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description10}")</script></label>
+<div class="steps" id="response-form10">
+<video loop="loop" height="135" id="player10" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start10}_${end10}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress10" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description11}")</script></label>
+<div class="steps" id="response-form11">
+<video loop="loop" height="135" id="player11" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start11}_${end11}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress11" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description12}")</script></label>
+<div class="steps" id="response-form12">
+<video loop="loop" height="135" id="player12" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start12}_${end12}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress12" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description13}")</script></label>
+<div class="steps" id="response-form13">
+<video loop="loop" height="135" id="player13" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start13}_${end13}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress13" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description14}")</script></label>
+<div class="steps" id="response-form14">
+<video loop="loop" height="135" id="player14" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start14}_${end14}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress14" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description15}")</script></label>
+<div class="steps" id="response-form15">
+<video loop="loop" height="135" id="player15" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start15}_${end15}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress15" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+<label> <script type="text/javascript">document.write("${description16}")</script></label>
+<div class="steps" id="response-form16">
+<video loop="loop" height="135" id="player16" width="240"><source src="https://vatbox.cs.rochester.edu/youcook2/segments/${ytid}/${start16}_${end16}.mp4" type="video/mp4" />
+<p>Looks like your browser is out-dated. You should skip this HIT!</p>
+</video>
+<p id="progress16" style="font-family: 'Courier New', Courier, monospace;">Loading...</p>
+</div>
+
+
+<div class="form-group" id="response-form" style="display: none;"><!-- why are you looking here, get out! --><input name="identifier" type="text" value="audio" /> <input name="ytid" type="text" value="${ytid}" /> <input id="dummy" name="clickedPlay" type="text" value="0" /> <input id="instr" name="clickedInstructions" type="text" value="0" /> <input id="yt-error" name="youtubeError" type="text" value="0" /> <input id="ua" name="userAgent" type="text" value="" /> <input id="adb" name="hasAdBlock" type="text" value="1" /></div>
+</div>
+<!-- Worker input -->
+
+<div class="col-sm-4">
+<div class="form-group">
+<h3>Ask question and give answer:</h3>
+<label>Refer to instruction if you forget what to do ;-)</label>
+<label style="color:red">We have several tasks with similar design but different content. Be sure you are doing the correct one.</label>
+<label>Propose question involving counting:</label>
+<p>Hints: things like "how many", "are there five tomatoes", etc.</p>
+<textarea class="form-control" cols="250" name="q1" placeholder="Ask here..." rows="1" required></textarea><br />
+<label>Give a brief answer:</label>
+<textarea class="form-control" cols="250" name="a1" placeholder="Answer here..." rows="1" required></textarea><br />
+<br>
+<label>Comments on this assignment (optional):</label>
+<textarea class="form-control" cols="250" name="comments" rows="2"></textarea><br />
+<input class="submit btn btn-primary" id="submitButton" type="submit" value="Submit Answer" /></div>
+</div>
+</div>
+</section>
+
+<!-- End Video matching layout --><!-- Open internal style sheet -->
+<style type="text/css">/* uhh */
+</style>
+<style type="text/css">
+  #submitButton {
+    white-space: normal;
+  }
+  /* CSS for breaking long words/urls */
+  .dont-break-out {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  }
+</style>
+<!-- End internal style sheet --><!-- External JS references --><script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script><!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>--><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- REU-2018 script code --><script type="text/javascript">
+  // --- general variables
+  var vid;
+  var c;
+  var ua = window.navigator.userAgent;
+  var first = true;
+  var xmlhttp = new XMLHttpRequest();
+  var i;
+  var inc = 1;
+  var len;
+  var start = [0];
+  var end = [0];
+  var speed = 10.0;
+  var maxLength = 10;
+  
+  
+  start[1] = ${start1}
+  start[2] = ${start2}
+  start[3] = ${start3}
+  start[4] = ${start4}
+  start[5] = ${start5}
+  start[6] = ${start6}
+  start[7] = ${start7}
+  start[8] = ${start8}
+  start[9] = ${start9}
+  start[10] = ${start10}
+  start[11] = ${start11}
+  start[12] = ${start12}
+  start[13] = ${start13}
+  start[14] = ${start14}
+  start[15] = ${start15}
+  start[16] = ${start16}
+
+  end[1] = ${end1}
+  end[2] = ${end2}
+  end[3] = ${end3}
+  end[4] = ${end4}
+  end[5] = ${end5}
+  end[6] = ${end6}
+  end[7] = ${end7}
+  end[8] = ${end8}
+  end[9] = ${end9}
+  end[10] = ${end10}
+  end[11] = ${end11}
+  end[12] = ${end12}
+  end[13] = ${end13}
+  end[14] = ${end14}
+  end[15] = ${end15}
+  end[16] = ${end16}
+    
+  // --- load descriptions
+
+  // --- document object variables
+  var err = $("#yt-error");
+  var instr = $("#instr");
+  
+  var player1 = $("#player1");
+  var plget1 = player1.get(0);
+  var player2 = $("#player2");
+  var plget2 = player2.get(0);
+  var player3 = $("#player3");
+  var plget3 = player3.get(0);
+  var player4 = $("#player4");
+  var plget4 = player4.get(0);
+  var player5 = $("#player5");
+  var plget5 = player5.get(0);
+  var player6 = $("#player6");
+  var plget6 = player6.get(0);
+  var player7 = $("#player7");
+  var plget7 = player7.get(0);
+  var player8 = $("#player8");
+  var plget8 = player8.get(0);
+  var player9 = $("#player9");
+  var plget9 = player9.get(0);
+  var player10 = $("#player10");
+  var plget10 = player10.get(0);
+  var player11 = $("#player11");
+  var plget11 = player11.get(0);
+  var player12 = $("#player12");
+  var plget12 = player12.get(0);
+  var player13 = $("#player13");
+  var plget13 = player13.get(0);
+  var player14 = $("#player14");
+  var plget14 = player14.get(0);
+  var player15 = $("#player15");
+  var plget15 = player15.get(0);
+  var player16 = $("#player16");
+  var plget16 = player16.get(0);
+
+  var loadText = $("#loading");
+  var progressText1 = $("#progress1")
+  var progressText2 = $("#progress2")
+  var progressText3 = $("#progress3")
+  var progressText4 = $("#progress4")
+  var progressText5 = $("#progress5")
+  var progressText6 = $("#progress6")
+  var progressText7 = $("#progress7")
+  var progressText8 = $("#progress8")
+  var progressText9 = $("#progress9")
+  var progressText10 = $("#progress10")
+  var progressText11 = $("#progress11")
+  var progressText12 = $("#progress12")
+  var progressText13 = $("#progress13")
+  var progressText14 = $("#progress14")
+  var progressText15 = $("#progress15")
+  var progressText16 = $("#progress16")
+  // --- script code
+  loadText.html("Loading video (this may take seconds)...");
+  player1.on('timeupdate', check1).on('error', error1).on('canplay', ready).on('volumechange', vol1);
+  $('#ua').val(ua);
+  // set onclick for instructions
+  $('#instrLink').on('click', instrClicked);
+  // --- functions
+  function instrClicked() {
+    instr.val(1);
+  }
+  function ready() {
+    
+    if (!(start[1] == 0 && end[1] == 0)) {
+      plget1.muted = true;
+      loadText.html('Videos are ready for playback! If you see video segments below this message, you are good to go!');
+      plget1.play();
+      plget1.playbackRate = Math.ceil((end[1] - start[1]) / speed);
+    } 
+    else { $('#response-form1').hide(); }
+    
+    if (!(start[2] == 0 && end[2] == 0)) {
+      plget2.muted = true;
+      player2.on('timeupdate', check2);
+      player2.on('volumechange', vol2);
+      // player2.on('error', error);
+      plget2.play();
+      plget2.playbackRate = Math.ceil((end[2] - start[2]) / speed);
+    }
+    else { $('#response-form2').hide(); }
+
+    if (!(start[3] == 0 && end[3] == 0)) {
+      plget3.muted = true;
+      player3.on('timeupdate', check3);
+      player3.on('volumechange', vol3);
+      // player3.on('error', error);
+      plget3.play();
+      plget3.playbackRate = Math.ceil((end[3] - start[3]) / speed);
+    }
+    else { $('#response-form3').hide(); }
+
+    if (!(start[4] == 0 && end[4] == 0)) {
+      plget4.muted = true;
+      player4.on('timeupdate', check4);
+      player4.on('volumechange', vol4);
+      // player4.on('error', error);
+      plget4.play();
+      plget4.playbackRate = Math.ceil((end[4] - start[4]) / speed);
+    }
+    else { $('#response-form4').hide(); }
+
+    if (!(start[5] == 0 && end[5] == 0)) {
+      plget5.muted = true;
+      player5.on('timeupdate', check5);
+      player5.on('volumechange', vol5);
+      // player5.on('error', error);
+      plget5.play();
+      plget5.playbackRate = Math.ceil((end[5] - start[5]) / speed);
+    }
+    else { $('#response-form5').hide(); }
+
+    if (!(start[6] == 0 && end[6] == 0)) {
+      plget6.muted = true;
+      player6.on('timeupdate', check6);
+      player6.on('volumechange', vol6);
+      // player6.on('error', error);
+      plget6.play();
+      plget6.playbackRate = Math.ceil((end[6] - start[6]) / speed);
+    }
+    else { $('#response-form6').hide(); }
+
+    if (!(start[7] == 0 && end[7] == 0)) {
+      plget7.muted = true;
+      player7.on('timeupdate', check7);
+      player7.on('volumechange', vol7);
+      // player7.on('error', error);
+      plget7.play();
+      plget7.playbackRate = Math.ceil((end[7] - start[7]) / speed);
+    }
+    else { $('#response-form7').hide(); }
+
+    if (!(start[8] == 0 && end[8] == 0)) {
+      plget8.muted = true;
+      player8.on('timeupdate', check8);
+      player8.on('volumechange', vol8);
+      // player8.on('error', error);
+      plget8.play();
+      plget8.playbackRate = Math.ceil((end[8] - start[8]) / speed);
+    }
+    else { $('#response-form8').hide(); }
+
+    if (!(start[9] == 0 && end[9] == 0)) {
+      plget9.muted = true;
+      player9.on('timeupdate', check9);
+      player9.on('volumechange', vol9);
+      // player9.on('error', error);
+      plget9.play();
+      plget9.playbackRate = Math.ceil((end[9] - start[9]) / speed);
+    }
+    else { $('#response-form9').hide(); }
+
+    if (!(start[10] == 0 && end[10] == 0)) {
+      plget10.muted = true;
+      player10.on('timeupdate', check10);
+      player10.on('volumechange', vol10);
+      // player10.on('error', error);
+      plget10.play();
+      plget10.playbackRate = Math.ceil((end[10] - start[10]) / speed);
+    }
+    else { $('#response-form10').hide(); }
+
+    if (!(start[11] == 0 && end[11] == 0)) {
+      plget11.muted = true;
+      player11.on('timeupdate', check11);
+      player11.on('volumechange', vol11);
+      // player11.on('error', error);
+      plget11.play();
+      plget11.playbackRate = Math.ceil((end[11] - start[11]) / speed);
+    }
+    else { $('#response-form11').hide(); }
+
+    if (!(start[12] == 0 && end[12] == 0)) {
+      plget12.muted = true;
+      player12.on('timeupdate', check12);
+      player12.on('volumechange', vol12);
+      // player12.on('error', error);
+      plget12.play();
+      plget12.playbackRate = Math.ceil((end[12] - start[12]) / speed);
+    }
+    else { $('#response-form12').hide(); }
+
+    if (!(start[13] == 0 && end[13] == 0)) {
+      plget13.muted = true;
+      player13.on('timeupdate', check13);
+      player13.on('volumechange', vol13);
+      // player13.on('error', error);
+      plget13.play();
+      plget13.playbackRate = Math.ceil((end[13] - start[13]) / speed);
+    }
+    else { $('#response-form13').hide(); }
+
+    if (!(start[14] == 0 && end[14] == 0)) {
+      plget14.muted = true;
+      player14.on('timeupdate', check14);
+      player14.on('volumechange', vol14);
+      // player14.on('error', error);
+      plget14.play();
+      plget14.playbackRate = Math.ceil((end[14] - start[14]) / speed);
+    }
+    else { $('#response-form14').hide(); }
+
+    if (!(start[15] == 0 && end[15] == 0)) {
+      plget15.muted = true;
+      player15.on('timeupdate', check15);
+      player15.on('volumechange', vol15);
+      // player15.on('error', error);
+      plget15.play();
+      plget15.playbackRate = Math.ceil((end[15] - start[15]) / speed);
+    }
+    else { $('#response-form15').hide(); }
+
+    if (!(start[16] == 0 && end[16] == 0)) {
+      plget16.muted = true;
+      player16.on('timeupdate', check16);
+      player16.on('volumechange', vol16);
+      // player16.on('error', error);
+      plget16.play();
+      plget16.playbackRate = Math.ceil((end[16] - start[16]) / speed);
+    }
+    else { $('#response-form16').hide(); }
+    
+  }
+  
+  function check1() {
+    c = plget1.currentTime;
+    var len = Math.ceil(c / (end[1] - start[1]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText1.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[1]));
+  }
+  function check2() {
+    c = plget2.currentTime;
+    var len = Math.ceil(c / (end[2] - start[2]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText2.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[2]));
+  }
+  function check3() {
+    c = plget3.currentTime;
+    var len = Math.ceil(c / (end[3] - start[3]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText3.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[3]));
+  }
+  function check4() {
+    c = plget4.currentTime;
+    var len = Math.ceil(c / (end[4] - start[4]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText4.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[4]));
+  }
+  function check5() {
+    c = plget5.currentTime;
+    var len = Math.ceil(c / (end[5] - start[5]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText5.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[5]));
+  }
+  function check6() {
+    c = plget6.currentTime;
+    var len = Math.ceil(c / (end[6] - start[6]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText6.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[6]));
+  }
+  function check7() {
+    c = plget7.currentTime;
+    var len = Math.ceil(c / (end[7] - start[7]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText7.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[7]));
+  }
+  function check8() {
+    c = plget8.currentTime;
+    var len = Math.ceil(c / (end[8] - start[8]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText8.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[8]));
+  }
+  function check9() {
+    c = plget9.currentTime;
+    var len = Math.ceil(c / (end[9] - start[9]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText9.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[9]));
+  }
+  function check10() {
+    c = plget10.currentTime;
+    var len = Math.ceil(c / (end[10] - start[10]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText10.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[10]));
+  }
+  function check11() {
+    c = plget11.currentTime;
+    var len = Math.ceil(c / (end[11] - start[11]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText11.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[11]));
+  }
+  function check12() {
+    c = plget12.currentTime;
+    var len = Math.ceil(c / (end[12] - start[12]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText12.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[12]));
+  }
+  function check13() {
+    c = plget13.currentTime;
+    var len = Math.ceil(c / (end[13] - start[13]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText13.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[13]));
+  }
+  function check14() {
+    c = plget14.currentTime;
+    var len = Math.ceil(c / (end[14] - start[14]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText14.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[14]));
+  }
+  function check15() {
+    c = plget15.currentTime;
+    var len = Math.ceil(c / (end[15] - start[15]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText15.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[15]));
+  }
+  function check16() {
+    c = plget16.currentTime;
+    var len = Math.ceil(c / (end[16] - start[16]) * maxLength);
+    var plus = new Array(len + inc).join('#');
+    var minus = new Array(maxLength - len + inc).join('_')
+    progressText16.html("Progress:[" + plus + minus + "]" + "    Current time: " + Math.floor(c + start[16]));
+  }
+  
+  function vol1() {
+    plget1.muted = true;
+  }
+  function vol2() {
+    plget2.muted = true;
+  }
+  function vol3() {
+    plget3.muted = true;
+  }
+  function vol4() {
+    plget4.muted = true;
+  }
+  function vol5() {
+    plget5.muted = true;
+  }
+  function vol6() {
+    plget6.muted = true;
+  }
+  function vol7() {
+    plget7.muted = true;
+  }
+  function vol8() {
+    plget8.muted = true;
+  }
+  function vol9() {
+    plget9.muted = true;
+  }
+  function vol10() {
+    plget10.muted = true;
+  }
+  function vol11() {
+    plget11.muted = true;
+  }
+  function vol12() {
+    plget12.muted = true;
+  }
+  function vol13() {
+    plget13.muted = true;
+  }
+  function vol14() {
+    plget14.muted = true;
+  }
+  function vol15() {
+    plget15.muted = true;
+  }
+  function vol16() {
+    plget16.muted = true;
+  }
+  
+  
+  function error1() {
+    loadText.html("Uh oh! Something went wrong. Please do not accept this HIT!").removeClass('blue').addClass('red');
+    progressText1.html("Uh oh! Something went wrong. Please do not accept this HIT!");
+    progressText2.html("Uh oh! Something went wrong. Please do not accept this HIT!");
+    progressText3.html("Uh oh! Something went wrong. Please do not accept this HIT!");
+    progressText4.html("Uh oh! Something went wrong. Please do not accept this HIT!");
+    progressText5.html("Uh oh! Something went wrong. Please do not accept this HIT!");
+    progressText6.html("Uh oh! Something went wrong. Please do not accept this HIT!");
+    err.val(1);
+  }
+  function error() {
+    // loadText.html("Uh oh! Something went wrong. Please do not accept this HIT!").removeClass('blue').addClass('red');
+    err.val(1);
+  }
+  function play(ele) {
+    plget1.play();
+    plget2.play();
+    if (first) {
+      first = false;
+      document.getElementById("dummy").setAttribute("value", "1");
+    }
+    ele.setAttribute("onclick", "pause(this);");
+    ele.textContent = "Pause Video";
+  }
+  function pause(ele) {
+    plget1.pause();
+    plget2.pause();
+    ele.setAttribute("onclick", "play(this);");
+    ele.textContent = "Play Video";
+  }
+</script><!-- End REU script --></p>
+
