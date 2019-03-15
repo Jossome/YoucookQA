@@ -8,7 +8,7 @@ import pandas as pd
 import os
 from nltk.tokenize import RegexpTokenizer
 
-subset = 'training'
+subset = 'testing'
 
 frame_to_second = {}
 n_frame = {}
@@ -266,7 +266,7 @@ for each in db:
         token_q = word_tokenize(q)
         for j, seg in enumerate(segs):
             mat_frame[i][j] = int(seg['segment'][0] / frame_to_second[each])
-            mat_frame[i][j] = int(mat_frame[i][j] * 480 / n_frame[each])  # bounding the index to 0 - 479
+            mat_frame[i][j] = int(mat_frame[i][j] * 480 / int(n_frame[each]))  # bounding the index to 0 - 479
 
             desc = seg['sentence']
             token_d = word_tokenize(desc)
