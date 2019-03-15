@@ -1,14 +1,26 @@
 import json
+import math
 import re
 from nltk import word_tokenize
 import numpy as np
 import pickle
 import pandas as pd
 import os
+from nltk.tokenize import RegexpTokenizer
 
-subset = 'validation'
+subset = 'training'
 
-with open('../data/qa_pairs_with_id.json', 'r') as f:
+frame_to_second = {}
+vid_dura = {}
+sampling_sec = 0.5
+with open('yc2_duration_frame.csv', 'r') as f:
+    for line in f:
+        vid_name, vid_dur, vid_frame = [l.strip() for l in line.split(',')]
+        frame_to_second[vid_name] = float(vid_dur)*math.ceil(float(vid_frame)*1./float(vid_dur)*sampling_sec)*1./float(vid_frame) # for yc2
+        vid_dura[vid_name] = vid_frame
+
+
+with open('cleaned_db.json', 'r') as f:
     db = json.load(f)
 
 if not os.path.exists('data'):
@@ -158,7 +170,41 @@ mat_kspace = np.zeros(num)
 # mat_wiki = np.zeros((num, max_len_wiki))
 mat_id = ['' for x in range(num)]
 mat_type = np.zeros(num)
+mat_ans_type = np.zeros(num)
 mat_frame = -np.ones((num, 17))
+
+num_list = {
+    'none': 0,
+    'zero': 0,
+    'once': 1,
+    'one': 1,
+    'twice': 2,
+    'two': 2,
+    'three': 3,
+    'four': 4,
+    'five': 5,
+    'six': 6,
+    'seven': 7,
+    'eight': 8,
+    'nine': 9,
+    'ten': 10,
+    'eleven': 11,
+    'twelve': 12,
+    'thirteen': 13,
+    'fourteen': 14,
+    'fifteen': 15,
+    'sixteen': 16,
+    'seventeen': 17,
+    'eighteen': 18,
+    'nineteen': 19,
+    'twenty': 20
+}
+
+def process(word):
+    if word.lower() in num_list:
+        return str(num_list[word.lower()])
+    else:
+        return word.lower()
 
 i = 0
 ynq = 0
@@ -183,6 +229,34 @@ for each in db:
     for pair in pairs:
 
         q = pair['question'].lower()
+
+        # four answer types: ynq:0, numq:1, sinq:2, texq:3
+        a = pair['answer']
+        normal_tokenizer = RegexpTokenizer(r'[A-Za-z0-9-]+')
+        numeric_tokenizer = RegexpTokenizer(r'[0-9-]+')
+        token_a = normal_tokenizer.tokenize(a)
+        a = (' ').join([process(x) for x in token_a])
+        token_a = normal_tokenizer.tokenize(a)
+        digit_a = numeric_tokenizer.tokenize(a)
+        try:
+            if token_a[0].lower() in ['yes', 'no']:
+                # ynq += 1
+                mat_ans_type[i] = 0
+            elif len(digit_a) > 0:
+                # numq += 1
+                mat_ans_type[i] = 1
+            elif len(token_a) == 1:
+                # sinq += 1
+                mat_ans_type[i] = 2
+            else:
+                # texq += 1
+                mat_ans_type[i] = 3
+        except Exception as e:
+            # print(len(pair['question'].strip()))
+            # Strange that len is much greater than zero,
+            # and not blank, but won't print a single char.
+            mat_ans_type[i] = 3
+
         a = []
         a.append(pair['answer'].lower())
         for alt in pair['alternatives']:
@@ -191,7 +265,8 @@ for each in db:
         t = pair['type']
         token_q = word_tokenize(q)
         for j, seg in enumerate(segs):
-            mat_frame[i][j] = int(seg['segment'][0] / length * 500)
+            mat_frame[i][j] = int(seg['segment'][0] / frame_to_second[each])
+
             desc = seg['sentence']
             token_d = word_tokenize(desc)
             for k, word in enumerate(token_d):
@@ -238,7 +313,7 @@ for each in db:
 
         i += 1
 
-# print(ynq)
+print(ynq)
 
 with open('data/' + subset + '/mat_q.pkl', 'wb') as f:
     pickle.dump(mat_q, f, protocol=2)
@@ -269,6 +344,9 @@ with open('data/' + subset + '/mat_id.pkl', 'wb') as f:
 
 with open('data/' + subset + '/mat_type.pkl', 'wb') as f:
     pickle.dump(mat_type, f, protocol=2)
+
+with open('data/' + subset + '/mat_ans_type.pkl', 'wb') as f:
+    pickle.dump(mat_ans_type, f, protocol=2)
 
 with open('data/' + subset + '/mat_kspace.pkl', 'wb') as f:
     pickle.dump(mat_kspace, f, protocol=2)
