@@ -74,12 +74,12 @@ for each in db:
         token_a = word_tokenize(a)
 
         # fuck classes for each answer
-        jiba = a
+        temp = a
         if token_a[0] == 'yes':
-            jiba = 'Yes.'
+            temp = 'Yes.'
         if token_a[0] == 'no':
-            jiba = 'No.'
-        set_kspace |= {jiba}
+            temp = 'No.'
+        set_kspace |= {temp}
 
         set_a |= set(token_a)
         for alt in alts:
@@ -288,14 +288,14 @@ for each in db:
 
         for j, alt in enumerate(a):
             token_a = word_tokenize(alt)
-            jiba = alt
+            temp = alt
             if token_a[0] == 'yes':
-                jiba = 'yes'
+                temp = 'yes'
                 ynq += 1
             if token_a[0] == 'no':
-                jiba = 'no'
+                temp = 'no'
                 ynq -= 1
-            token_a = word_tokenize(jiba)
+            token_a = word_tokenize(temp)
             for k, word in enumerate(token_a):
                 mat_a[i][j][k] = dict_a[word]
                 mat_a_uniform[i][j][k] = dict_all[word]
@@ -304,12 +304,12 @@ for each in db:
         mat_type[i] = t[0]
 
         token_a = word_tokenize(pair['answer'].lower())
-        jiba = pair['answer'].lower()
+        temp = pair['answer'].lower()
         if token_a[0] == 'yes':
-            jiba = 'Yes.'
+            temp = 'Yes.'
         if token_a[0] == 'no':
-            jiba = 'No.'
-        mat_kspace[i] = dict_kspace[jiba]
+            temp = 'No.'
+        mat_kspace[i] = dict_kspace[temp]
 
         i += 1
 

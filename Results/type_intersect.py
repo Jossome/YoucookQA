@@ -31,6 +31,6 @@ for each in db:
                 stats[x] += 1
 
 stats = {k: v for k, v in stats.items() if v}
-stats[(2,)] += 84
+stats[(2,)]
 print(stats)
 

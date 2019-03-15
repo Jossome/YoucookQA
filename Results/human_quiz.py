@@ -108,6 +108,7 @@ def check_answer(q_id):
 
     k = [x.split('=')[-1].strip() for x in lines if 'https:' in x]
     correct = []
+    print(len(lines))
     for i in range(30):
         q = lines[i * 9 + 4].strip()
         for pair in db[k[i]]['QApairs']:
@@ -163,10 +164,4 @@ if __name__ == '__main__':
     acc = chu([dui, zong])
     print(acc)
     print(sum(dui.values()) / sum(zong.values()))
-
-
-
-
-
-
 

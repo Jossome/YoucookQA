@@ -169,7 +169,7 @@ class statistics:
         others = 0
         for each in self.db:
             pairs = self.db[each]['QApairs']
-            if self.db[each]['subset'] != 'validation':
+            if self.db[each]['subset'] != 'testing':
                 continue
 
             for pair in pairs:
@@ -228,6 +228,7 @@ class statistics:
         if type_num == -1:
             print('qa/recipe: ', cnt / 110)
         print('others: ', others)
+        return cnt, tags, words, ynq, numq, sinq, texq, others
 
 
     def recipe_stats(self, recipe_name, verbose=True):
@@ -516,13 +517,50 @@ if __name__ == '__main__':
     # stats.similarity_based_multiple_choice()
     # stats.rule_based_multiple_choice()
 
-    stats.qa_stats('count')
-    stats.qa_stats('when')
-    stats.qa_stats('order')
-    stats.qa_stats('property')
-    stats.qa_stats('reasoning')
-    stats.qa_stats('taste')
-    stats.qa_stats('total')
+    lcnt, ltags, lwords, lynq, lnumq, lsinq, ltexq = [], [], [], [], [], [], []
+
+    cnt, tags, words, ynq, numq, sinq, texq, others = stats.qa_stats('count')
+    lynq.append(ynq)
+    lnumq.append(numq)
+    lsinq.append(sinq)
+    ltexq.append(texq)
+
+    cnt, tags, words, ynq, numq, sinq, texq, others = stats.qa_stats('when')
+    lynq.append(ynq)
+    lnumq.append(numq)
+    lsinq.append(sinq)
+    ltexq.append(texq)
+
+    cnt, tags, words, ynq, numq, sinq, texq, others = stats.qa_stats('order')
+    lynq.append(ynq)
+    lnumq.append(numq)
+    lsinq.append(sinq)
+    ltexq.append(texq)
+
+    cnt, tags, words, ynq, numq, sinq, texq, others =stats.qa_stats('property')
+    lynq.append(ynq)
+    lnumq.append(numq)
+    lsinq.append(sinq)
+    ltexq.append(texq)
+
+    cnt, tags, words, ynq, numq, sinq, texq, others =stats.qa_stats('reasoning')
+    lynq.append(ynq)
+    lnumq.append(numq)
+    lsinq.append(sinq)
+    ltexq.append(texq)
+
+    cnt, tags, words, ynq, numq, sinq, texq, others =stats.qa_stats('taste')
+    lynq.append(ynq)
+    lnumq.append(numq)
+    lsinq.append(sinq)
+    ltexq.append(texq)
+
+    cnt, tags, words, ynq, numq, sinq, texq, others =stats.qa_stats('total')
+    lynq.append(ynq)
+    lnumq.append(numq)
+    lsinq.append(sinq)
+    ltexq.append(texq)
+
     stats.recipe_stats('total')
     stats.visual_multiple_choice('count', num=3)
     stats.visual_multiple_choice('when', num=3)
@@ -530,3 +568,8 @@ if __name__ == '__main__':
     stats.visual_multiple_choice('property', num=3)
     stats.visual_multiple_choice('reasoning', num=3)
     stats.visual_multiple_choice('taste', num=3)
+
+    print(lynq)
+    print(lnumq)
+    print(lsinq)
+    print(ltexq)
