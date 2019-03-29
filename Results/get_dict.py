@@ -19,7 +19,6 @@ with open('yc2_duration_frame.csv', 'r') as f:
         frame_to_second[vid_name] = float(vid_dur)*math.ceil(float(vid_frame)*1./float(vid_dur)*sampling_sec)*1./float(vid_frame) # for yc2
         n_frame[vid_name] = vid_frame
 
-
 with open('cleaned_db.json', 'r') as f:
     db = json.load(f)
 
@@ -171,7 +170,7 @@ mat_kspace = np.zeros(num)
 mat_id = ['' for x in range(num)]
 mat_type = np.zeros(num)
 mat_ans_type = np.zeros(num)
-mat_frame = -np.ones((num, 17))
+mat_frame = -np.ones((num, 17, 2))
 
 num_list = {
     'none': 0,
@@ -208,6 +207,7 @@ def process(word):
 
 i = 0
 ynq = 0
+maximummm = 0
 for each in db:
     # if each == val_first:
     #     print('train last:', i)
@@ -264,9 +264,25 @@ for each in db:
 
         t = pair['type']
         token_q = word_tokenize(q)
+        fts = frame_to_second[each]
+        first_start_overflow = True
+        first_end_overflow = True
         for j, seg in enumerate(segs):
-            mat_frame[i][j] = int(seg['segment'][0] / frame_to_second[each])
-            mat_frame[i][j] = int(mat_frame[i][j] * 480 / int(n_frame[each]))  # bounding the index to 0 - 479
+            mat_frame[i][j][0] = math.floor(seg['segment'][0] / fts)
+            if mat_frame[i][j][0] > 478:
+                if first_start_overflow:
+                    first_start_overflow = False
+                    mat_frame[i][j][0] = 478
+                else:
+                    mat_frame[i][j][0] = -1
+
+            mat_frame[i][j][1] = math.ceil(seg['segment'][1] / fts)
+            if mat_frame[i][j][1] > 479:
+                if first_end_overflow:
+                    first_end_overflow = False
+                    mat_frame[i][j][1] = 479
+                else:
+                    mat_frame[i][j][1] = -1
 
             desc = seg['sentence']
             token_d = word_tokenize(desc)
