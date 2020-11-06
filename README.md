@@ -1,5 +1,5 @@
-# youquek-collect
-This repo is for collecting question-answer pairs for YouQuek dataset.
+# YoucookQA dataset
+This repo is for collecting question-answer pairs for YoucookQA dataset. Please refer to our [arXiv paper](https://arxiv.org/abs/1812.00344) for details. This dataset will appear in WACV 2021.
 
 ## Files
 - `generate_questions.py` is to generate 'when' questions along with answers.
@@ -19,7 +19,7 @@ This repo is for collecting question-answer pairs for YouQuek dataset.
     - `collect.py` ensembles all cleaned work and get final json file
     - `type_intersect.py` calculates the intersection count among different types
 - `data/*`
-    - `.json` dataset
+    - `.json` our QA dataset
     - `.txt` train/val/test split id
 
 ## Tasks
