@@ -1,5 +1,5 @@
 # YoucookQA dataset
-This repo is for collecting question-answer pairs for YoucookQA dataset. Please refer to our [arXiv paper](https://arxiv.org/abs/1812.00344) for details. This dataset will appear in WACV 2021.
+This branch is for collecting the QA annotations for YoucookQA dataset.
 
 ## Files
 - `generate_questions.py` is to generate 'when' questions along with answers.
